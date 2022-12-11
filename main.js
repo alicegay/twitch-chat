@@ -31,10 +31,10 @@ var emoji = new EmojiConvertor();
 emoji.allow_native = false;
 emoji.replace_mode = 'css';
 emoji.use_sheet = true;
-emoji.img_sets.twitter.sheet = 'emoji/twitter.png';
-emoji.img_sets.google.sheet = 'emoji/google.png';
-emoji.img_sets.apple.sheet = 'emoji/apple.png';
-emoji.img_sets.facebook.sheet = 'emoji/facebook.png';
+emoji.img_sets.twitter.sheet = 'emoji/twitter.png?7.0.2';
+emoji.img_sets.google.sheet = 'emoji/google.png?7.0.2';
+emoji.img_sets.apple.sheet = 'emoji/apple.png?7.0.2';
+emoji.img_sets.facebook.sheet = 'emoji/facebook.png?7.0.2';
 emoji.img_set = getParam('emoji') ? getParam('emoji') : 'twitter';
 
 client.on('connecting', (address, port) => {
