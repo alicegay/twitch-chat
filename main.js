@@ -172,7 +172,7 @@ var messageCount = 0;
 var messageLimit = 50;
 
 client.on('message', (channel, tags, message, self) => {
-	//console.log(tags['display-name'] + ': ' + message);
+	console.log(tags['display-name'] + ': ' + message);
   console.log(tags);
 
   sendMessage(tags, message);
@@ -257,7 +257,7 @@ function parseMessage(message, emotes) {
     }
     message = message.replace(regex, '<img class="emote" src="' + emoteList[emote] + '">');
   }
-  message = emoji.replace_unified(message);
+  message = emoji.replace_unified(message.replaceAll('\u{e0002}', '\u200d'));
   return message;
 }
 function parseBadges(badges) {
