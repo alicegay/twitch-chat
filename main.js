@@ -27,15 +27,23 @@ var options = {
 const client = new tmi.Client(options);
 client.connect().catch(console.error);
 
+var emoji_set = getParam('emoji') ? getParam('emoji') : 'twitter';
+
+
 var emoji = new EmojiConvertor();
 emoji.allow_native = false;
 emoji.replace_mode = 'css';
 emoji.use_sheet = true;
 emoji.img_sets.twitter.sheet = 'emoji/twitter.png?14.0.0';
-emoji.img_sets.google.sheet = 'emoji/google.png?14.0.0';
 emoji.img_sets.apple.sheet = 'emoji/apple.png?14.0.0';
 emoji.img_sets.facebook.sheet = 'emoji/facebook.png?14.0.0';
-emoji.img_set = getParam('emoji') ? getParam('emoji') : 'twitter';
+if (emoji_set == 'blob'){
+  emoji.img_sets.google.sheet = 'emoji/blob.png?14.0.0-0';
+  emoji.img_set = 'google';
+} else {
+  emoji.img_sets.google.sheet = 'emoji/google.png?14.0.0';
+  emoji.img_set = emoji_set;
+}
 
 client.on('connecting', (address, port) => {
   console.log('Connecting to ' + channel + ' (' + address + ':' + port + ')')
