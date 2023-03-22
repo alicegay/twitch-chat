@@ -32,12 +32,10 @@ body {
 }
 .message .pronouns, .notif .pronouns {
   color: #EEE;
+  background-color: #2228;
   font-family: 'Roboto Condensed', sans-serif;
-  text-shadow: -1px 0 1px #222, 1px 0 1px #222, 0 -1px 1px #222, 0 1px 1px #222;
   align-items: center;
-  border: 0.1rem solid;
-  border-radius: 0.25rem;
-  /*box-shadow: -1px 0 1px #222, 1px 0 1px #222, 0 -1px 1px #222, 0 1px 1px #222;*/
+  border-radius: 0.3rem;
 }
 .message .emote, .notif .emote {
   display: inline-block;

@@ -94,7 +94,7 @@ function getPronoun(username) {
         pronouns[username] = data[0]['pronoun_id'];
         console.log('Pronouns for ' + username + ' retrieved: ' + pronouns[username])
         if (pronounNames.hasOwnProperty(pronouns[username])) {
-          $('.nopronoun_' + username).replaceWith('<span class="pronouns">&nbsp;' + pronounNames[pronouns[username]] + '&nbsp;</span>&nbsp;');
+          $('.nopronoun_' + username).replaceWith('<span class="pronouns" style="font-size: calc(' + fontsize + '*0.9px);">&nbsp;' + pronounNames[pronouns[username]] + '&nbsp;</span>&nbsp;');
         }
         return pronouns[username];
       }
@@ -227,7 +227,7 @@ function sendMessage(tags, message) {
     append += parseBadges(tags['badges']);
   }
   if (pronoun) {
-    append += '<span class="pronouns">&nbsp;' + pronoun + '&nbsp;</span>&nbsp;'
+    append += '<span class="pronouns" style="font-size: calc(' + fontsize + '*0.9px);">&nbsp;' + pronoun + '&nbsp;</span>&nbsp;'
   } else {
     append += '<span class="nopronoun_' + tags['username'] + '"></span>';
   }
