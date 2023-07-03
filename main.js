@@ -112,10 +112,16 @@ var gotGlobalBadges = false;
 var gotBTTV = false;
 var gotFFZ = false;
 function getBadges() {
-  $.get('https://badges.twitch.tv/v1/badges/channels/' + roomID + '/display', function(data, status) {
+  $.get('https://twitchapi.sleepyand.gay/badges/' + roomID, function(data, status) {
     if (status == 'success') {
-      //badgeList = Object.assign(data['badge_sets'], badgeList);
-      badgeList['channel'] = data['badge_sets'];
+      for (i = 0; i < data['data'].length; i++) {
+        var sid = data['data'][i]['set_id']
+        badgeList['channel'][sid] = {}
+        for (ii = 0; ii < data['data'][i]['versions'].length; ii++) {
+          var vid = data['data'][i]['versions'][ii]['id']
+          badgeList['channel'][sid][vid] = data['data'][i]['versions'][ii]
+        }
+      }
       console.log('Retrieved channel badges')
       gotBadges = true;
     } else {
@@ -124,10 +130,16 @@ function getBadges() {
   });
 }
 function getGlobalBadges() {
-  $.get('https://badges.twitch.tv/v1/badges/global/display', function(data, status) {
+  $.get('https://twitchapi.sleepyand.gay/badges/global', function(data, status) {
     if (status == 'success') {
-      //badgeList = Object.assign(data['badge_sets'], badgeList);
-      badgeList['global'] = data['badge_sets'];
+      for (i = 0; i < data['data'].length; i++) {
+        var sid = data['data'][i]['set_id']
+        badgeList['global'][sid] = {}
+        for (ii = 0; ii < data['data'][i]['versions'].length; ii++) {
+          var vid = data['data'][i]['versions'][ii]['id']
+          badgeList['global'][sid][vid] = data['data'][i]['versions'][ii]
+        }
+      }
       console.log('Retrieved global badges')
       gotGlobalBadges = true;
     } else {
@@ -272,13 +284,13 @@ function parseBadges(badges) {
   var text = '';
   for (var badge in badges) {
     if (badgeList['channel'].hasOwnProperty(badge)) {
-      if (badgeList['channel'][badge]['versions'].hasOwnProperty(badges[badge])) {
-        var url = badgeList['channel'][badge]['versions'][badges[badge]]['image_url_4x'];
+      if (badgeList['channel'][badge].hasOwnProperty(badges[badge])) {
+        var url = badgeList['channel'][badge][badges[badge]]['image_url_4x'];
         text += '<img class="badge" src="' + url + '">&nbsp;'
       }
     } else if (badgeList['global'].hasOwnProperty(badge)) {
-      if (badgeList['global'][badge]['versions'].hasOwnProperty(badges[badge])) {
-        var url = badgeList['global'][badge]['versions'][badges[badge]]['image_url_4x'];
+      if (badgeList['global'][badge].hasOwnProperty(badges[badge])) {
+        var url = badgeList['global'][badge][badges[badge]]['image_url_4x'];
         text += '<img class="badge" src="' + url + '">&nbsp;'
       }
     }
